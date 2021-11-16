@@ -158,11 +158,12 @@ body {
     height: 80px;
 }
 
-error-output {
+.error-output {
     margin-left: 10px;
     font-size: 12px;
     font-style: italic;
     color: red;
+    text-transform: capitalize;
 }
 
 .submit-reset-container {
@@ -194,4 +195,16 @@ error-output {
 .submitButton:disabled {
     cursor: not-allowed;
     pointer-events: all !important;
+}
+
+.displayMessageSuccess {
+    color: green;
+    text-align: center;
+    margin-top: 20px;
+}
+
+.displayMessageError {
+    color: red;
+    text-align: center;
+    margin-top: 20px;
 }
