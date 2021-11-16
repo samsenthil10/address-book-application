@@ -1,10 +1,19 @@
-import './App.css';
+import AddressBookForm from './components/address-book-form/AddressBookForm'
+import {
+  BrowserRouter as Router,
+  Routes,
+  Route
+} from "react-router-dom"
 
 function App() {
   return (
-    <p>
-      Hello World
-    </p>
+    <div className="App">
+      <Router>
+        <Routes>
+        <Route path="/" element={<AddressBookForm />} />
+        </Routes>
+      </Router>
+    </div>
   );
 }
 
