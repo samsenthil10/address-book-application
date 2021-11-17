@@ -208,3 +208,52 @@ body {
     text-align: center;
     margin-top: 20px;
 }
+
+@media only screen and (max-width:400px) {
+    .form-head-text {
+        font-size: small;
+    }
+    .button-parent {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+    }
+    button {
+        width: 55%;
+        height: auto;
+    }
+    .addButton,
+    .resetButton {
+        margin: 10px 20px;
+    }
+    .form-text {
+        font: normal normal normal 18px/30px Roboto;
+        width: 100px;
+        word-wrap: break-word;
+        text-align: center;
+    }
+    .cancel {
+        height: 20px;
+        width: 20px;
+    }
+    .cancel-img {
+        margin-right: 1px;
+        margin-bottom: 20px;
+    }
+    .address-text {
+        font: normal normal bold 15px/25px Montserrat;
+    }
+    .logo-content-img {
+        height: 45px;
+        margin-top: 5%;
+    }
+    .form-head-text {
+        margin-left: 1px;
+    }
+    .form-cancel-img {
+        margin: 16px 16px 0px 0px;
+    }
+    select {
+        width: 100%
+    }
+}

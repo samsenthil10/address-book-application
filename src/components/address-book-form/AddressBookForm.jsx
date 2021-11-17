@@ -199,7 +199,7 @@ const AddressBookForm = (props) => {
                     <div className="row-content-exp">
                         <div className="oneRow-content">
                             <label className="label text" for="state">State</label>
-                            <select name="state" id="state" className="select-input" required onChange={changeValue} value={formValue.state}><option value="0">Select State</option>
+                            <select name="state" id="state" className="select-input select-input-state" required onChange={changeValue} value={formValue.state}><option value="0">Select State</option>
                                 <option value="Karnataka">Karnataka</option>
                                 <option value="Kerala">Kerala</option>
                                 <option value="Tamil nadu">Tamil Nadu</option>
@@ -208,12 +208,13 @@ const AddressBookForm = (props) => {
                         </div>
                         <div className="oneRow-content">
                             <label className="label text" for="city">City</label>
-                            <select name="city" id="city" className="select-input" required onChange={changeValue} value={formValue.city}>
+                            <select name="city" id="city" className="select-input select-input-city" required onChange={changeValue} value={formValue.city}>
                                 <option value="0">Select City</option>
                                 <option value="Bangalore">Bangalore</option>
                                 <option value="Chennai">Chennai</option>
                                 <option value="Hyderabad">Hyderabad</option>
                                 <option value="Mysore">Mysore</option>
+                                <option value="Thiruvananthapuram">Thiruvananthapuram</option>
                                 </select>
                         </div>
                         <div className="zip-container">
