@@ -87,8 +87,7 @@ const AddressBookForm = (props) => {
             addressBookService.getContact(id).then(contact => {
                 setForm({
                     ...formValue,
-                    firstName: contact.data.data.firstName,
-                    lastName: contact.data.data.lastName,
+                    name: contact.data.data.firstName+" "+contact.data.data.lastName,
                     phoneNumber: contact.data.data.phoneNumber,
                     address: contact.data.data.address,
                     city: contact.data.data.city,
@@ -193,14 +192,21 @@ const AddressBookForm = (props) => {
                         <div className="oneRow-content">
                             <label className="label text" for="state">State</label>
                             <select name="state" id="state" className="select-input" required onChange={changeValue} value={formValue.state}><option value="0">Select State</option>
-                                <option value="Karnataka">Karnataka</option></select>
+                                <option value="Karnataka">Karnataka</option>
+                                <option value="Kerala">Kerala</option>
+                                <option value="Tamil nadu">Tamil Nadu</option>
+                                <option value="Telangana">Telangana</option>
+                                </select>
                         </div>
                         <div className="oneRow-content">
                             <label className="label text" for="city">City</label>
                             <select name="city" id="city" className="select-input" required onChange={changeValue} value={formValue.city}>
                                 <option value="0">Select City</option>
                                 <option value="Bangalore">Bangalore</option>
-                                <option value="Mysore">Mysore</option></select>
+                                <option value="Chennai">Chennai</option>
+                                <option value="Hyderabad">Hyderabad</option>
+                                <option value="Mysore">Mysore</option>
+                                </select>
                         </div>
                         <div className="zip-container">
                             <label className="label text" for="zip">Zip</label>
