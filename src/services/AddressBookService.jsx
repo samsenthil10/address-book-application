@@ -7,7 +7,7 @@ export default class AddressBookService {
         return AxiosService.postService(`${this.baseUrl}/addressbookservice/create`, data);
     }
     getAllContacts() {
-        return AxiosService.getService(`${this.baseUrl}`);
+        return AxiosService.getService(`${this.baseUrl}/addressbookservice/`);
     }
     deleteContact(data) {
         return AxiosService.deleteService(`${this.baseUrl}/addressbookservice/delete/`+data);
@@ -17,5 +17,11 @@ export default class AddressBookService {
     }
     updateContact(data,id) {
         return AxiosService.putService(`${this.baseUrl}/addressbookservice/update/${id}`, data);
+    }
+    getContactsByCity(city){
+        return AxiosService.getService(`${this.baseUrl}/addressbookservice/get/city/${city}`);
+    }
+    getContactsByState(state){
+        return AxiosService.getService(`${this.baseUrl}/addressbookservice/get/state/${state}`);
     }
 }
