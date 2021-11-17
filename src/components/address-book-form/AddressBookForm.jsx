@@ -167,7 +167,7 @@ const AddressBookForm = (props) => {
         <body>
             <header className="header-content header">
                 <div className="logo-content">
-                    <Link to="/"><img className="logo-content-img" src="../assets/images/logo.png" alt=""></img></Link>
+                    <Link to="/"><img className="logo-content-img" src="/assets/images/logo.png" alt=""></img></Link>
                     <div>
                         <span className="text-address">ADDRESS</span><br></br>
                         <span className="text-address text-book">BOOK</span>
@@ -179,7 +179,7 @@ const AddressBookForm = (props) => {
                 <form className="form" name="contactForm" action="#" onSubmit={save}>
                     <div className="form-head">
                         <div className="form-head-text">Person Address Form</div>
-                        <Link to="/"><img src="../assets/images/cancel.png" alt="" className="form-cancel-img"></img></Link>
+                        <Link to="/"><img src="/assets/images/cancel.png" alt="" className="form-cancel-img"></img></Link>
                     </div>
                     <div className="row-content">
                         <label className="label text" for="name">Full Name</label>

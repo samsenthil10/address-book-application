@@ -8,8 +8,15 @@ var addressBookService=new AddressBookService();
 const Display = (props) => {
   
     const remove= (id) =>{
-        addressBookService.deleteContact(id);
-        window.location.reload();
+      const addressBookService = new AddressBookService()
+      var status = window.confirm("Are you sure you want to delete?")
+      if (status === true) {
+          addressBookService.deleteContact(id)
+          window.location.reload()
+      }
+      else{
+        window.location.reload()
+      }
     } 
  
   return (
@@ -33,9 +40,9 @@ const Display = (props) => {
                   <td>{contact.city}</td>
                   <td>{contact.state}</td>
                   <td>{contact.zip}</td>
-                  <td><img src="../assets/icons/delete-black-18dp.svg" onClick={() => remove(contact.contactId)} alt="delete" />
+                  <td><img src="/assets/icons/delete-black-18dp.svg" onClick={() => remove(contact.contactId)} alt="delete" />
                       <Link to={`/address-book-form/${contact.contactId}/`}> 
-                      <img src="../assets/icons/create-black-18dp.svg" alt="update" />
+                      <img src="/assets/icons/create-black-18dp.svg" alt="update" />
                       </Link>
                       </td>
               </tr>

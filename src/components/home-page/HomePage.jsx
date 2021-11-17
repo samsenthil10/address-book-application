@@ -31,7 +31,7 @@ class AddressBookHome extends React.Component {
         <div className="body" onLoad={this.getAllContactsList}>
         <header className="header-content header">
                 <div className="logo-content">
-                    <Link to="/"><img className="logo-content-img" src="../assets/images/logo.png" alt=""></img></Link>
+                    <Link to="/"><img className="logo-content-img" src="/assets/images/logo.png" alt=""></img></Link>
                     <div>
                         <span className="text-address">ADDRESS</span><br></br>
                         <span className="text-address text-book">BOOK</span>
