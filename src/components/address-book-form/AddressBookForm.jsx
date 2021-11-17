@@ -50,7 +50,7 @@ const AddressBookForm = (props) => {
             error.name = 'Invalid Name'
             isError = true;
         }
-        const phoneNumberPattern = /^[+]?([0-9]{2})?[789]{1}[0-9]{9}$/
+        const phoneNumberPattern = /^[+]?([0-9]{2})?[ ]?[789]{1}[0-9]{9}$/
         if (!phoneNumberPattern.test(formValue.phoneNumber) || formValue.phoneNumber.length < 1) {
             error.phoneNumber = 'Invalid PhoneNumber'
             isError = true;
@@ -83,7 +83,6 @@ const AddressBookForm = (props) => {
     useEffect(() => {
         if (params.id) {
             getDataById(params.id);
-            console.log(params.id)
         }
         // eslint-disable-next-line
     }, []);
@@ -127,7 +126,6 @@ const AddressBookForm = (props) => {
                 zip: formValue.zip,
             };
             if (formValue.isUpdate) {
-                console.log(object)
                 addressBookService
                     .updateContact(object, params.id)
                     .then((data) => {
@@ -141,7 +139,7 @@ const AddressBookForm = (props) => {
                         setDisplayMessageError("Error While Updating Contact")
                     });
             } else {
-                console.log(object)
+
                 addressBookService
                     .addContact(object)
                     .then((data) => {
