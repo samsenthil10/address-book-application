@@ -28,7 +28,7 @@ const AddressBookForm = (props) => {
     const [formValue, setForm] = useState(initialValue);
     const [displayMessageSuccess, setDisplayMessageSuccess] = useState("");
     const [displayMessageError, setDisplayMessageError] = useState("");
-    const { id } = useParams()
+    const params = useParams()
 
     const changeValue = (event) => {
         setForm({ ...formValue, [event.target.name]: event.target.value })
@@ -81,23 +81,32 @@ const AddressBookForm = (props) => {
 
 
     useEffect(() => {
-
-        if (id) {
-            formValue.isUpdate = true
-            addressBookService.getContact(id).then(contact => {
-                setForm({
-                    ...formValue,
-                    name: contact.data.data.firstName+" "+contact.data.data.lastName,
-                    phoneNumber: contact.data.data.phoneNumber,
-                    address: contact.data.data.address,
-                    city: contact.data.data.city,
-                    state: contact.data.data.state,
-                    zip: contact.data.data.zip
-                });
-            })
+        if (params.id) {
+            getDataById(params.id);
+            console.log(params.id)
         }
+        // eslint-disable-next-line
+    }, []);
 
-    })
+    const getDataById = (id) => {
+        addressBookService.getContact(id)
+            .then((data) => {
+                let obj = data.data.data;
+                setData(obj);
+            })
+            .catch((err) => {
+            });
+    };
+
+    const setData = (obj) => {
+
+        setForm({
+            ...formValue,
+            ...obj,
+            name: obj.firstName+" "+obj.lastName,
+            isUpdate: true,
+        });
+    };
 
     const save = async (event) => {
         event.preventDefault();
@@ -118,8 +127,9 @@ const AddressBookForm = (props) => {
                 zip: formValue.zip,
             };
             if (formValue.isUpdate) {
+                console.log(object)
                 addressBookService
-                    .updateContact(id, object)
+                    .updateContact(object, params.id)
                     .then((data) => {
                         setDisplayMessageError("")
                         setDisplayMessageSuccess("Successfully Updated Contact")
