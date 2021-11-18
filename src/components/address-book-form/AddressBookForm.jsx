@@ -10,7 +10,7 @@ const AddressBookForm = (props) => {
         phoneNumber: '',
         address: '',
         city: '',
-        state: '',
+        state: 'Select State',
         zip: '',
         isUpdate: false,
         error: {
@@ -23,11 +23,21 @@ const AddressBookForm = (props) => {
         }
     }
 
+    var citySelector = {
+
+        "Select State": ["Select City"],
+        "Karnataka": ["Select City","Bangalore","Mysore"],
+        "Kerala": ["Select City","Thiruvananthapuram","Thrissur"],
+        "Tamil Nadu":["Select City","Chennai","Madurai"],
+        "Telangana": ["Select City","Hyderabad","Secunderabad"]
+    }
+
     const addressBookService = new AddressBookService();
 
     const [formValue, setForm] = useState(initialValue);
     const [displayMessageSuccess, setDisplayMessageSuccess] = useState("");
     const [displayMessageError, setDisplayMessageError] = useState("");
+    const [phoneNumbers, setPhoneNumbers] = useState("");
     const params = useParams()
 
     const changeValue = (event) => {
@@ -52,7 +62,7 @@ const AddressBookForm = (props) => {
         }
         const phoneNumberPattern = /^[+]?([0-9]{2})?[ ]?[789]{1}[0-9]{9}$/
         if (!phoneNumberPattern.test(formValue.phoneNumber) || formValue.phoneNumber.length < 1) {
-            error.phoneNumber = 'Invalid PhoneNumber'
+            error.phoneNumber = 'Invalid Phone Number'
             isError = true;
         }
         const addressPattern = /^[a-zA-Z0-9]{3,}([\s]?[a-zA-Z0-9]{3,})*$/
@@ -62,7 +72,7 @@ const AddressBookForm = (props) => {
         }
         const zipPattern = /^[0-9]{3}[\s]?[0-9]{3}$/
         if (!zipPattern.test(formValue.zip) || formValue.zip.length < 1) {
-            error.zip = 'Invalid ZipCode'
+            error.zip = 'Invalid Zip Code'
             isError = true;
         }
 
@@ -91,10 +101,28 @@ const AddressBookForm = (props) => {
         addressBookService.getContact(id)
             .then((data) => {
                 let obj = data.data.data;
+
                 setData(obj);
             })
             .catch((err) => {
             });
+    };
+
+    useEffect(() => {
+        getPhoneNumbers();
+        // eslint-disable-next-line
+    }, []);
+
+
+    const getPhoneNumbers = () => {
+        addressBookService.getAllContacts()
+            .then((data) => {
+                let phoneNumbers = data.data.data.map(item => { return item.phoneNumber });
+                setPhoneNumbers(phoneNumbers)
+            })
+            .catch((err) => {
+            });
+
     };
 
     const setData = (obj) => {
@@ -102,7 +130,7 @@ const AddressBookForm = (props) => {
         setForm({
             ...formValue,
             ...obj,
-            name: obj.firstName+" "+obj.lastName,
+            name: obj.firstName + " " + obj.lastName,
             isUpdate: true,
         });
     };
@@ -112,11 +140,11 @@ const AddressBookForm = (props) => {
 
         if (await validData()) {
             return;
-        } else {            
+        } else {
 
-            var  nameArray = formValue.name.split(" ")
+            var nameArray = formValue.name.split(" ")
             let object = {
-                
+
                 firstName: nameArray[0],
                 lastName: nameArray[1],
                 phoneNumber: formValue.phoneNumber,
@@ -139,19 +167,34 @@ const AddressBookForm = (props) => {
                         setDisplayMessageError("Error While Updating Contact")
                     });
             } else {
-
-                addressBookService
-                    .addContact(object)
-                    .then((data) => {
-                        setDisplayMessageError("")
-                        setDisplayMessageSuccess("Successfully Added Contact")
-                        setTimeout(3000)
-                        reset()
-                    })
-                    .catch((err) => {
-                        setDisplayMessageSuccess("")
-                        setDisplayMessageError("Error While Adding Contact")
-                    });
+                var flag = 0;
+                phoneNumbers.forEach(item => { 
+                    if (item === object.phoneNumber) 
+                    { 
+                        flag = 1
+                        return
+                    }
+                     })
+                console.log(flag)
+                if (flag === 0) {
+                    addressBookService
+                        .addContact(object)
+                        .then((data) => {
+                            setDisplayMessageError("")
+                            setDisplayMessageSuccess("Successfully Added Contact")
+                            setTimeout(3000)
+                            reset()
+                        })
+                        .catch((err) => {
+                            setDisplayMessageSuccess("")
+                            setDisplayMessageError("Error While Adding Contact")
+                        });
+                }
+                else {
+                    setDisplayMessageSuccess("")
+                    setDisplayMessageError("Contact Already exists!")
+                    setTimeout(function() {window.location.reload()},3000);
+                }
             }
         }
     }
@@ -199,23 +242,18 @@ const AddressBookForm = (props) => {
                     <div className="row-content-exp">
                         <div className="oneRow-content">
                             <label className="label text" for="state">State</label>
-                            <select name="state" id="state" className="select-input select-input-state" required onChange={changeValue} value={formValue.state}><option value="0">Select State</option>
+                            <select name="state" id="state" className="select-input select-input-state" required onChange={changeValue} value={formValue.state}><option value="Select State">Select State</option>
                                 <option value="Karnataka">Karnataka</option>
                                 <option value="Kerala">Kerala</option>
-                                <option value="Tamil nadu">Tamil Nadu</option>
+                                <option value="Tamil Nadu">Tamil Nadu</option>
                                 <option value="Telangana">Telangana</option>
-                                </select>
+                            </select>
                         </div>
                         <div className="oneRow-content">
                             <label className="label text" for="city">City</label>
                             <select name="city" id="city" className="select-input select-input-city" required onChange={changeValue} value={formValue.city}>
-                                <option value="0">Select City</option>
-                                <option value="Bangalore">Bangalore</option>
-                                <option value="Chennai">Chennai</option>
-                                <option value="Hyderabad">Hyderabad</option>
-                                <option value="Mysore">Mysore</option>
-                                <option value="Thiruvananthapuram">Thiruvananthapuram</option>
-                                </select>
+                                {citySelector[formValue.state].map(element => {return <option value = {element}>{element}</option>})};
+                            </select>
                         </div>
                         <div className="zip-container">
                             <label className="label text" for="zip">Zip</label>
