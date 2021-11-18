@@ -137,6 +137,11 @@ body {
     height: 40px;
 }
 
+.input:focus {
+    border: 1px solid #008CFF;
+    outline: #008CFF;
+}
+
 .label+.input,
 .label+.select-input,
 .label+.row-input {
@@ -154,6 +159,11 @@ body {
     height: 40px;
 }
 
+.select-input:focus {
+    border: 1px solid #008CFF;
+    outline: #008CFF;
+}
+
 #address {
     height: 80px;
 }
@@ -169,7 +179,7 @@ body {
 .submit-reset-container {
     display: flex;
     flex-direction: row;
-    justify-content: end;
+    justify-content: flex-end;
     margin: 30px auto 20px auto;
     width: 80%
 }
