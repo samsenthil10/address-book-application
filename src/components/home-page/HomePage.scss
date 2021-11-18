@@ -187,3 +187,30 @@ td img:first-child {
 td img {
     cursor: pointer;
 }
+
+@media only screen and (max-width:400px) {
+    .add-button {
+        font: normal normal normal 12px/15px Roboto;
+        letter-spacing: 0px;
+        color: #ffffff;
+        opacity: 1;
+        background: #008cff 0% 0% no-repeat padding-box;
+        border: none;
+        border-radius: 5px;
+        padding: 7px 3px;
+        outline: none;
+        cursor: pointer;
+        text-decoration: none;
+    }
+    .contact-count {
+        background-color: #008cff;
+        color: #ffffff;
+        border-radius: 42%;
+        font-size: 12px;
+        width: 16px;
+        height: 22px;
+        text-align: center;
+        display: inline-block;
+        margin-left: 4px;
+    }
+}
